@@ -6,16 +6,19 @@ class OperationTestCase(unittest.TestCase):
 
     def test_operation__parse_bill_number_correct(self):
 
-        result_bill_number = Operation._parse_bill_number("Счет 12345678901234567890")
-        result_card_number = Operation._parse_bill_number("Some Card 1111222233334444")
+        result_bill_details = Operation._parse_payment_details("Счет 12345678901234567890")
+        result_card_details = Operation._parse_payment_details("Some Card 1111222233334444")
 
-        self.assertEqual(result_bill_number, "12345678901234567890")
-        self.assertEqual(result_card_number, "1111222233334444")
+        self.assertEqual(result_bill_details.number, "12345678901234567890")
+        self.assertEqual(result_bill_details.name, "Счет")
+
+        self.assertEqual(result_card_details.number, "1111222233334444")
+        self.assertEqual(result_card_details.name, "Some Card")
 
     def test_operation__parse_bill_number_invalid(self):
 
-        result_1 = Operation._parse_bill_number("Счет 1234567890123")
-        result_2 = Operation._parse_bill_number("")
+        result_1 = Operation._parse_payment_details("Счет 1234567890123")
+        result_2 = Operation._parse_payment_details("")
 
         self.assertIsNone(result_1)
         self.assertIsNone(result_2)

@@ -1,14 +1,18 @@
 import re
+from collections import namedtuple
 
 
 class Operation:
+
+    PaymentDetails = namedtuple("PaymentDetails", "name number")
+
     @staticmethod
-    def _parse_bill_number(incoming_str: str) -> str | None:
+    def _parse_payment_details(incoming_str: str) -> PaymentDetails | None:
         if incoming_str:
-            pattern = r"^(.+\s)?(?P<number>\d{16}|\d{20})$"
+            pattern = r"^((?P<name>.+)\s)?(?P<number>\d{16}|\d{20})$"
             match = re.search(pattern, incoming_str)
             if match:
-                return match.group("number")
+                return Operation.PaymentDetails(name=match.group("name"), number=match.group("number"))
 
         return None
 
