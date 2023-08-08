@@ -1,4 +1,3 @@
-import re
 from collections import namedtuple
 from datetime import datetime
 
@@ -12,10 +11,14 @@ class Operation:
     @staticmethod
     def _parse_payment_details(incoming_str: str) -> PaymentDetails | None:
         if incoming_str:
-            pattern = r"^((?P<name>.+)\s)?(?P<number>\d{16}|\d{20})$"
-            match = re.search(pattern, incoming_str)
-            if match:
-                return Operation.PaymentDetails(name=match.group("name"), number=match.group("number"))
+            chunks = incoming_str.split()
+
+            if chunks:
+                name = ' '.join(chunks[:-1])
+                number = chunks[-1]
+
+                if number.isdigit() and (len(number) in [16, 20]):
+                    return Operation.PaymentDetails(name=name, number=number)
 
         return None
 
