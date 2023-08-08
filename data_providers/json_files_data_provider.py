@@ -14,6 +14,6 @@ class JsonFilesDataProvider(data_provider.DataProvider):
         with open(self.__operations_file_name, "r", encoding="utf-8") as file:
             json_data = json.load(file)
             if json_data:
-                self._operations = [Operation(operation_item) for operation_item in json_data]
+                self._operations = [Operation(operation_item) for operation_item in json_data if operation_item]
 
         return super().get_operations()
