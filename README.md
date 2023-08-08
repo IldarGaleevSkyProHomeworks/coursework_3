@@ -1,3 +1,5 @@
+[![Python application](https://github.com/IldarGaleevSkyProHomeworks/coursework_3/actions/workflows/python-app.yml/badge.svg)](https://github.com/IldarGaleevSkyProHomeworks/coursework_3/actions/workflows/python-app.yml)
+
 # Курсовой проект по курсу «Основы backend-разработки»
 
 ## Задача
