@@ -23,16 +23,6 @@ class OperationTestCase(unittest.TestCase):
         self.assertIsNone(result_1)
         self.assertIsNone(result_2)
 
-    def test_operation__stringify_number_card_number(self):
-        result = Operation._stringify_number("1357246833331234")
-
-        self.assertEqual(result, "1357 24XX XXXX 1234")
-
-    def test_operation__stringify_number_bill_number(self):
-        result = Operation._stringify_number("12345678901234567890")
-
-        self.assertEqual(result, "XX 7890")
-
     def test_operation__all_properties_valid(self):
         operation_item = {
             "id": 1234,

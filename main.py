@@ -1,6 +1,7 @@
 import settings
 from data_providers import DataProvider
 from data_providers import JsonFilesDataProvider
+from views import OperationView
 
 
 def main(data_provider: DataProvider):
@@ -10,8 +11,10 @@ def main(data_provider: DataProvider):
         if operation.state == "EXECUTED"
     ], reverse=True)[:settings.SHOW_OPERATIONS_COUNT]
 
-    for operation in complete_operations:
-        print(f"{operation.date.strftime('%d.%m.%Y')} {operation.description}\n"
+    operation_view_list = [OperationView(operation) for operation in complete_operations]
+
+    for operation in operation_view_list:
+        print(f"{operation.date} {operation.description}\n"
               f"{operation.payment_from} -> {operation.payment_to}\n"
               f"{operation.operation_amount}\n")
 

@@ -22,21 +22,6 @@ class Operation:
 
         return None
 
-    @staticmethod
-    def _stringify_number(number_str: str) -> str | None:
-        if number_str and number_str.isdigit():
-            str_len = len(number_str)
-            match str_len:
-                case 16:
-                    c_len = 4
-                    chunks = [number_str[n:n + c_len] for n in range(0, str_len, c_len)]
-
-                    return f"{chunks[0]} {chunks[1][:2]}XX XXXX {chunks[3]}"
-                case 20:
-                    return f"XX {number_str[-4:]}"
-
-        return None
-
     def __init__(self, operation_details: dict):
         self._id = operation_details.get("id", 0)
         self._date = datetime.strptime(operation_details.get("date", ""), "%Y-%m-%dT%H:%M:%S.%f")
@@ -67,20 +52,8 @@ class Operation:
                 raise TypeError("Compare type error: the second operator must be Operation or datetime.")
 
     @property
-    def payment_from(self):
-        if self._from:
-            return f"{self._from.name} {Operation._stringify_number(self._from.number)}"
-        return None
-
-    @property
     def payment_from_details(self) -> PaymentDetails | None:
         return self._from
-
-    @property
-    def payment_to(self):
-        if self._to:
-            return f"{self._to.name} {Operation._stringify_number(self._to.number)}"
-        return None
 
     @property
     def payment_to_details(self) -> PaymentDetails | None:
