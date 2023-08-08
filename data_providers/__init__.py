@@ -1,3 +1,5 @@
 from data_providers import data_provider
+from data_providers import json_files_data_provider
 
 DataProvider = data_provider.DataProvider
+JsonFilesDataProvider = json_files_data_provider.JsonFilesDataProvider
