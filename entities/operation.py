@@ -26,7 +26,7 @@ class Operation:
             match str_len:
                 case 16:
                     c_len = 4
-                    chunks = [number_str[n:n+c_len] for n in range(0, str_len, c_len)]
+                    chunks = [number_str[n:n + c_len] for n in range(0, str_len, c_len)]
 
                     return f"{chunks[0]} {chunks[1][:2]}XX XXXX {chunks[3]}"
                 case 20:
@@ -53,6 +53,15 @@ class Operation:
                f"from={self._from}," \
                f"to={self._to}" \
                f")"
+
+    def __lt__(self, other):
+        match other:
+            case datetime():
+                return self.date < other
+            case Operation():
+                return self.date < other.date
+            case _:
+                raise TypeError("Compare type error: the second operator must be Operation or datetime.")
 
     @property
     def payment_from(self):

@@ -58,6 +58,28 @@ class OperationTestCase(unittest.TestCase):
         self.assertEqual(instance.payment_from_details, ("Some Card", "1111222233334444"))
         self.assertEqual(instance.payment_to_details, ("Billnumber", "11112222333344445555"))
 
+    def test_operation__less(self):
+        instance_1 = Operation({
+            "date": "2023-08-08T15:16:16.0"
+        })
+
+        instance_2 = Operation({
+            "date": "2023-08-09T15:16:16.0"
+        })
+
+        date_time = datetime(2023, 8, 15)
+
+        self.assertLess(instance_1, instance_2)
+        self.assertLess(instance_1, date_time)
+
+    def test_operation__less_raise_TypeError(self):
+        instance_1 = Operation({"date": "2023-08-08T15:16:16.0"})
+
+        with self.assertRaises(TypeError) as context:
+            _ = instance_1 < 1234
+
+        self.assertIsNotNone(context)
+
 
 if __name__ == '__main__':
     unittest.main()
