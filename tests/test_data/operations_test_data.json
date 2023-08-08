@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "state": "EXECUTED",
+    "date": "2023-01-01T00:00:00.0",
+    "operationAmount": {
+      "amount": "100.00",
+      "currency": {
+        "name": "руб.",
+        "code": "RUB"
+      }
+    },
+    "description": "First operation",
+    "from": "Card 1111222233334444",
+    "to": "BillNumber 11112222333344445555"
+  },
+  {
+    "id": 2,
+    "state": "EXECUTED",
+    "date": "2023-01-02T00:00:00.0",
+    "operationAmount": {
+      "amount": "200.00",
+      "currency": {
+        "name": "USD",
+        "code": "USD"
+      }
+    },
+    "description": "Second operation",
+    "from": "Card 1111222233334455",
+    "to": "BillNumber 11112222333344445555"
+  },
+  {
+    "id": 3,
+    "state": "CANCELED",
+    "date": "2023-01-02T00:00:00.0",
+    "operationAmount": {
+      "amount": "300.00",
+      "currency": {
+        "name": "USD",
+        "code": "USD"
+      }
+    },
+    "description": "Third operation",
+    "from": "Card 1111222233334466",
+    "to": "BillNumber 11112222333344445555"
+  }
+]
