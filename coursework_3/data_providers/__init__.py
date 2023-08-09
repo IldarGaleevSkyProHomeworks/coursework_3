@@ -1,0 +1,5 @@
+from coursework_3.data_providers import data_provider
+from coursework_3.data_providers import json_files_data_provider
+
+DataProvider = data_provider.DataProvider
+JsonFilesDataProvider = json_files_data_provider.JsonFilesDataProvider

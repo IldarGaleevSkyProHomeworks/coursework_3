@@ -1,6 +1,6 @@
 import unittest
-from entities import Operation
-from entities import OperationAmount
+from coursework_3.entities import Operation
+from coursework_3.entities import OperationAmount
 from datetime import datetime
 
 

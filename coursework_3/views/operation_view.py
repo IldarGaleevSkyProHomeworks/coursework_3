@@ -1,4 +1,4 @@
-from entities import Operation
+from coursework_3.entities import Operation
 
 
 class OperationView:

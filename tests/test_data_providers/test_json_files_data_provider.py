@@ -1,7 +1,7 @@
 import unittest
 from os import path
 
-from data_providers import JsonFilesDataProvider
+from coursework_3.data_providers import JsonFilesDataProvider
 
 
 class JsonFilesDataProviderTestCase(unittest.TestCase):

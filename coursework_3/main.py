@@ -1,7 +1,7 @@
 import settings
-from data_providers import DataProvider
-from data_providers import JsonFilesDataProvider
-from views import OperationView
+from coursework_3.data_providers import DataProvider
+from coursework_3.data_providers import JsonFilesDataProvider
+from coursework_3.views import OperationView
 
 
 def main(data_provider: DataProvider):

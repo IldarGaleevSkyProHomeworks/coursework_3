@@ -1,7 +1,7 @@
 from collections import namedtuple
 from datetime import datetime
 
-from entities import operation_amount
+from coursework_3.entities import operation_amount
 
 
 class Operation:

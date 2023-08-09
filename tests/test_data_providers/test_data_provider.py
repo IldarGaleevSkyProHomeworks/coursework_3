@@ -1,8 +1,7 @@
-import unittest
 import unittest.mock
 from datetime import datetime
 
-from data_providers import DataProvider
+from coursework_3.data_providers import DataProvider
 
 
 class DataProviderTestCase(unittest.TestCase):

@@ -1,5 +1,5 @@
 import unittest
-from entities import OperationAmount
+from coursework_3.entities import OperationAmount
 
 
 class OperationAmountTestCase(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from views import OperationView
+from coursework_3.views import OperationView
 
 
 class OperationViewTestCase(unittest.TestCase):

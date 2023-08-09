@@ -1,5 +1,5 @@
-from data_providers import data_provider
-from entities import Operation
+from coursework_3.data_providers import data_provider
+from coursework_3.entities import Operation
 import json
 
 
