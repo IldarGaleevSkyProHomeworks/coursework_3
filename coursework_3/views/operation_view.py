@@ -2,9 +2,16 @@ from coursework_3.entities import Operation
 
 
 class OperationView:
+    """ View for Operation model """
 
     @staticmethod
     def _stringify_number(number_str: str) -> str | None:
+        """
+        Hiding the bill/card numbers
+        :param number_str: string with card/bill number
+        :return: Masked number string, None for invalid incoming string
+        """
+
         if number_str and number_str.isdigit():
             str_len = len(number_str)
             match str_len:
@@ -23,19 +30,27 @@ class OperationView:
 
     @property
     def description(self) -> str:
+        """ Operation description """
+
         return self.__operation.description
 
     @property
     def date(self):
+        """ Operation date: DD.MM.YYYY """
+
         return self.__operation.date.strftime('%d.%m.%Y')
 
     @property
     def operation_amount(self) -> str:
+        """ Operation amount: 0.00 cur. """
+
         return f"{round(self.__operation.operation_amount.amount, 2)} " \
                f"{self.__operation.operation_amount.currency.name}"
 
     @property
     def payment_from(self) -> str:
+        """ Information about the sender of the payment """
+
         if self.__operation.payment_from_details:
             return f"{self.__operation.payment_from_details.name} " \
                    f"{OperationView._stringify_number(self.__operation.payment_from_details.number)}"
@@ -43,6 +58,8 @@ class OperationView:
 
     @property
     def payment_to(self) -> str:
+        """ Information about the payment recipient """
+
         if self.__operation.payment_to_details:
             return f"{self.__operation.payment_to_details.name} " \
                    f"{OperationView._stringify_number(self.__operation.payment_to_details.number)}"
