@@ -1,44 +1,45 @@
-import unittest
 from coursework_3.entities import OperationAmount
 
 
-class OperationAmountTestCase(unittest.TestCase):
-    def test_operation_amount__all_properties_valid(self):
-        operation_amount_item = {
-            "amount": "12345.67",
-            "currency": {
-                "name": "вал.",
-                "code": "CUR"
-            }
+def test_operation_amount__all_properties_valid():
+    operation_amount_item = {
+        "amount": "12345.67",
+        "currency": {
+            "name": "вал.",
+            "code": "CUR"
         }
+    }
 
-        instance = OperationAmount(operation_amount_item)
+    instance = OperationAmount(operation_amount_item)
 
-        self.assertEqual(instance.amount, 12345.67)
-        self.assertEqual(instance.currency.code, "CUR")
-        self.assertEqual(instance.currency.name, "вал.")
+    assert instance.amount == 12345.67
+    assert instance.currency.code == "CUR"
+    assert instance.currency.name == "вал."
 
-    def test_operation_amount__all_properties_invalid(self):
-        operation_amount_item = None
 
-        instance = OperationAmount(operation_amount_item)
+def test_operation_amount__all_properties_invalid():
+    operation_amount_item = None
 
-        self.assertEqual(instance.amount, 0.0)
-        self.assertIsNone(instance.currency.code)
-        self.assertIsNone(instance.currency.name)
+    instance = OperationAmount(operation_amount_item)
 
-    def test_operation_amount__is_equal(self):
-        instance_1 = OperationAmount({"amount": "1234", "currency": {"code": "Usd"}})
-        instance_2 = OperationAmount({"amount": "1234", "currency": {"code": "USD"}})
+    assert instance.amount == 0.0
+    assert instance.currency.code is None
+    assert instance.currency.name is None
 
-        self.assertEqual(instance_1, instance_2)
 
-    def test_operation_amount__is_not_equal(self):
-        instance_1 = OperationAmount({"amount": "1234.5", "currency": {"code": "Usd"}})
-        instance_2 = OperationAmount({"amount": "123.4", "currency": {"code": "USD"}})
-        instance_3 = OperationAmount({"amount": "1234.5", "currency": {"code": "RUB"}})
-        instance_4 = 1234.5
+def test_operation_amount__is_equal():
+    instance_1 = OperationAmount({"amount": "1234", "currency": {"code": "Usd"}})
+    instance_2 = OperationAmount({"amount": "1234", "currency": {"code": "USD"}})
 
-        self.assertNotEqual(instance_1, instance_2)
-        self.assertNotEqual(instance_1, instance_3)
-        self.assertNotEqual(instance_1, instance_4)
+    assert instance_1 == instance_2
+
+
+def test_operation_amount__is_not_equal():
+    instance_1 = OperationAmount({"amount": "1234.5", "currency": {"code": "Usd"}})
+    instance_2 = OperationAmount({"amount": "1234.5", "currency": {"code": "RUB"}})
+    instance_3 = OperationAmount({"amount": "123.4", "currency": {"code": "USD"}})
+    instance_4 = 1234.5
+
+    assert not instance_1 == instance_2
+    assert not instance_1 == instance_3
+    assert not instance_1 == instance_4
