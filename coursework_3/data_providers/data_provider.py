@@ -19,7 +19,7 @@ class DataProvider:
         :return: Filtered operations
         """
         return [
-                    operation for operation in self._operations
+                    operation for operation in self.get_operations()
                     if operation.state == operation_status
                 ]
 
