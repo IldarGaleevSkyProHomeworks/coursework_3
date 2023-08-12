@@ -60,3 +60,33 @@ def test_operation_view_operation_details(payment_details, expected_result):
 
     assert instance.payment_from == expected_result
     assert instance.payment_to == expected_result
+
+@pytest.mark.parametrize("operation_description, expected_result",[
+    ("Some description", "Some description"),
+    (None, None)
+])
+def test_operation_view_operation_description(operation_description, expected_result):
+    operation_instance = type('entities.Operation',
+                              (),
+                              {
+                                  "description": operation_description,
+                              })
+
+    instance = OperationView(operation_instance)
+
+    assert instance.description == expected_result
+
+@pytest.mark.parametrize("operation_datetime, expected_result",[
+    (datetime(2023, 8, 8), "08.08.2023"),
+    (datetime(2024, 12, 31), "31.12.2024")
+])
+def test_operation_view_operation_date(operation_datetime, expected_result):
+    operation_instance = type('entities.Operation',
+                              (),
+                              {
+                                  "date": operation_datetime,
+                              })
+
+    instance = OperationView(operation_instance)
+
+    assert instance.date == expected_result
