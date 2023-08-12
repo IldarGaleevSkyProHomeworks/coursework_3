@@ -1,9 +1,15 @@
-from collections import namedtuple
+from typing import NamedTuple
 
-OperationCurrency = namedtuple("OperationCurrency", "name code")
+
+class OperationCurrency(NamedTuple):
+    """ Represents information about the currency """
+    name: str
+    code: str
 
 
 class OperationAmount:
+    """ Represents information about the operation amount """
+
     def __init__(self, operation_amount: dict | None):
         if not operation_amount:
             operation_amount = {}
@@ -16,14 +22,13 @@ class OperationAmount:
 
     @property
     def amount(self) -> float:
+        """ Operation amount """
         return self._amount
 
     @property
     def currency(self) -> OperationCurrency:
+        """ Information about the operation currency """
         return self._currency
-
-    def __float__(self):
-        return self._amount
 
     def __str__(self):
         return f"{round(self._amount, 2)} {self._currency.name}"

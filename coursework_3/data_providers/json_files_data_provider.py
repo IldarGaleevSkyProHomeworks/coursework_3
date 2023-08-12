@@ -1,9 +1,10 @@
-from data_providers import data_provider
-from entities import Operation
+from coursework_3.data_providers import data_provider
+from coursework_3.entities import Operation
 import json
 
 
 class JsonFilesDataProvider(data_provider.DataProvider):
+    """ Loads data from json files """
 
     def __init__(self, operations_file_name):
         super().__init__()

@@ -1,75 +1,74 @@
-import unittest
-from entities import Operation
-from entities import OperationAmount
+import pytest
+from coursework_3.entities import Operation
+from coursework_3.entities import OperationAmount
 from datetime import datetime
 
 
-class OperationTestCase(unittest.TestCase):
+@pytest.mark.parametrize("input_str, expected_result", [
+    ("BillNumber 12345678901234567890", ("BillNumber", "12345678901234567890")),
+    ("Some Card 1111222233334444", ("Some Card", "1111222233334444")),
+])
+def test_operation__from_to(fixture_datetime, input_str, expected_result):
+    instance = Operation({"date": fixture_datetime[0], "from": input_str, "to": input_str})
 
-    def test_operation__parse_bill_number_correct(self):
-        result_bill_details = Operation._parse_payment_details("Счет 12345678901234567890")
-        result_card_details = Operation._parse_payment_details("Some Card 1111222233334444")
-
-        self.assertEqual(result_bill_details.number, "12345678901234567890")
-        self.assertEqual(result_bill_details.name, "Счет")
-
-        self.assertEqual(result_card_details.number, "1111222233334444")
-        self.assertEqual(result_card_details.name, "Some Card")
-
-    def test_operation__parse_bill_number_invalid(self):
-        result_1 = Operation._parse_payment_details("Счет 1234567890123")
-        result_2 = Operation._parse_payment_details("")
-
-        self.assertIsNone(result_1)
-        self.assertIsNone(result_2)
-
-    def test_operation__all_properties_valid(self):
-        operation_item = {
-            "id": 1234,
-            "state": "EXECUTED",
-            "date": "2023-08-08T15:16:16.0",
-            "operationAmount": {
-                "amount": "123.45",
-                "currency": {
-                    "name": "cur.",
-                    "code": "CUR"
-                }
-            },
-            "description": "some description",
-            "from": "Some Card 1111222233334444",
-            "to": "Billnumber 11112222333344445555"
-        }
-
-        instance = Operation(operation_item)
-        self.assertEqual(instance.state, "EXECUTED")
-        self.assertEqual(instance.date, datetime(2023, 8, 8, 15, 16, 16))
-        self.assertEqual(instance.operation_amount, OperationAmount({"amount": "123.45", "currency": {"code": "CUR"}}))
-        self.assertEqual(instance.description, "some description")
-        self.assertEqual(instance.payment_from_details, ("Some Card", "1111222233334444"))
-        self.assertEqual(instance.payment_to_details, ("Billnumber", "11112222333344445555"))
-
-    def test_operation__less(self):
-        instance_1 = Operation({
-            "date": "2023-08-08T15:16:16.0"
-        })
-
-        instance_2 = Operation({
-            "date": "2023-08-09T15:16:16.0"
-        })
-
-        date_time = datetime(2023, 8, 15)
-
-        self.assertLess(instance_1, instance_2)
-        self.assertLess(instance_1, date_time)
-
-    def test_operation__less_raise_TypeError(self):
-        instance_1 = Operation({"date": "2023-08-08T15:16:16.0"})
-
-        with self.assertRaises(TypeError) as context:
-            _ = instance_1 < 1234
-
-        self.assertIsNotNone(context)
+    assert instance.payment_from_details == expected_result
+    assert instance.payment_to_details == expected_result
 
 
-if __name__ == '__main__':
-    unittest.main()
+@pytest.mark.parametrize("input_str", [
+    "",
+    None,
+    "Bill 1234",
+    "Some card 1111222233334444555566667777"
+])
+def test_operation__from_to_invalid(fixture_datetime, input_str):
+    instance = Operation({"date": fixture_datetime[0], "from": input_str, "to": input_str})
+
+    assert instance.payment_to_details is None
+    assert instance.payment_from_details is None
+
+
+def test_operation__all_properties_valid(fixture_datetime):
+
+    operation_item = {
+        "id": 1234,
+        "state": "EXECUTED",
+        "date": fixture_datetime[0],
+        "operationAmount": {
+            "amount": "123.45",
+            "currency": {
+                "name": "cur.",
+                "code": "CUR"
+            }
+        },
+        "description": "some description",
+    }
+
+    instance = Operation(operation_item)
+
+    assert instance.state == "EXECUTED"
+    assert instance.date == fixture_datetime[1]
+    assert instance.operation_amount == OperationAmount({"amount": "123.45", "currency": {"code": "CUR"}})
+    assert instance.description == "some description"
+
+
+def test_operation__less():
+    instance_1 = Operation({
+        "date": "2023-08-08T15:16:16.0"
+    })
+
+    instance_2 = Operation({
+        "date": "2023-08-09T15:16:16.0"
+    })
+
+    date_time = datetime(2023, 8, 15)
+
+    assert instance_1 < instance_2
+    assert instance_1 < date_time
+
+
+def test_operation__less_raise():
+    instance_1 = Operation({"date": "2023-08-08T15:16:16.0"})
+
+    with pytest.raises(TypeError):
+        _ = instance_1 < 1234

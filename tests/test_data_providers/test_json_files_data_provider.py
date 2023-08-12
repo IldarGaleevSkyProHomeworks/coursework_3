@@ -1,19 +1,15 @@
-import unittest
 from os import path
 
-from data_providers import JsonFilesDataProvider
+from coursework_3.data_providers import JsonFilesDataProvider
+
+TEST_DIR = path.join(path.dirname(__file__), '..')
 
 
-class JsonFilesDataProviderTestCase(unittest.TestCase):
-    TEST_DIR = path.join(path.dirname(__file__), '..')
+def test_json_files_data_provider():
+    file_name = path.join(TEST_DIR, "test_data", "operations_test_data.json")
+    instance = JsonFilesDataProvider(file_name)
 
-    def test_json_files_data_provider(self):
-        file_name = path.join(JsonFilesDataProviderTestCase.TEST_DIR, "test_data", "operations_test_data.json")
-        instance = JsonFilesDataProvider(file_name)
-        var = instance.get_operations()
-        self.assertEqual(len(var), 3)
-        self.assertEqual(var[0].description, "First operation")
+    var = instance.get_operations()
 
-
-if __name__ == '__main__':
-    unittest.main()
+    assert len(var) == 3
+    assert var[0].description == "First operation"

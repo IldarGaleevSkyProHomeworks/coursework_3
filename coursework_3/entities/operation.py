@@ -1,15 +1,27 @@
-from collections import namedtuple
+from typing import NamedTuple
 from datetime import datetime
 
-from entities import operation_amount
+from coursework_3.entities import operation_amount
 
 
 class Operation:
+    """
+    Represents operation details
+    """
 
-    PaymentDetails = namedtuple("PaymentDetails", "name number")
+    class PaymentDetails(NamedTuple):
+        """ Represents payment details: name and bill/card number """
+        name: str
+        number: str
 
     @staticmethod
     def _parse_payment_details(incoming_str: str) -> PaymentDetails | None:
+        """
+        Extract payment details from string
+        :param incoming_str: string with payment details
+        :return: named tuple with a name and  card/bill number, None for invalid string
+        """
+
         if incoming_str:
             chunks = incoming_str.split()
 
@@ -53,24 +65,48 @@ class Operation:
 
     @property
     def payment_from_details(self) -> PaymentDetails | None:
+        """
+        Information about the sender of the payment
+        :return: PaymentDetails object
+        """
         return self._from
 
     @property
     def payment_to_details(self) -> PaymentDetails | None:
+        """
+        Information about the payment recipient
+        :return: PaymentDetails object
+        """
         return self._to
 
     @property
     def state(self) -> str:
+        """
+        Operation state
+        :return: EXECUTED, CANCELED
+        """
         return self._state
 
     @property
     def date(self) -> datetime:
+        """
+        Operation datetime
+        :return:
+        """
         return self._date
 
     @property
     def operation_amount(self) -> operation_amount.OperationAmount:
+        """
+        Information about amount and currency
+        :return: OperationAmount object
+        """
         return self._operation_amount
 
     @property
     def description(self) -> str:
+        """
+        Operation description
+        :return:
+        """
         return self._description
