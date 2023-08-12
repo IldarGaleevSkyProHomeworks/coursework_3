@@ -13,28 +13,15 @@ class DataProvider:
         return self._operations
 
     def get_operations_by_status(self, operation_status: str):
+        """
+        Get operations by status
+        :param operation_status: Operation status (EXECUTE, CANCELED)
+        :return: Filtered operations
+        """
         return [
                     operation for operation in self._operations
                     if operation.state == operation_status
                 ]
-
-    def get_operations_by_account_number(self, account_number: str):
-        """
-        Get operations for account
-        :param account_number: card or bill number
-        :return:
-        """
-
-        account_number = account_number.replace(' ', '')
-        if not account_number.isdigit() or not(len(account_number) in [16, 20]):
-            raise ValueError(f"\"{account_number}\" is not a valid account number")
-
-        return [
-            operation_item for
-            operation_item in self.get_operations()
-            if operation_item.payment_to_details.number == account_number or
-               operation_item.payment_from_details.number == account_number
-        ]
 
     def __str__(self):
         return '\n'.join([str(item) for item in self._operations])

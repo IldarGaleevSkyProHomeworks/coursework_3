@@ -61,12 +61,6 @@ def test_data_provider_get_operations(fixture_dataprovider_instance):
     assert len(lst) == 3
 
 
-def test_data_provider_get_account_operations(fixture_dataprovider_instance):
-    lst = fixture_dataprovider_instance.get_operations_by_account_number('1111222233334441')
-
-    assert len(lst) == 2
-
-
 @pytest.mark.parametrize("operation_status, expected_result", [
     ("CANCELED", 1),
     ("EXECUTED", 2),

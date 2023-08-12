@@ -30,9 +30,6 @@ class OperationAmount:
         """ Information about the operation currency """
         return self._currency
 
-    def __float__(self):
-        return self._amount
-
     def __str__(self):
         return f"{round(self._amount, 2)} {self._currency.name}"
 

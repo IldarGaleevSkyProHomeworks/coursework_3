@@ -23,8 +23,6 @@ class OperationView:
                 case 20:
                     return f"XX {number_str[-4:]}"
 
-        return None
-
     def __init__(self, operation: Operation):
         self.__operation = operation
 
