@@ -44,7 +44,7 @@ class OperationView:
     def operation_amount(self) -> str:
         """ Operation amount: 0.00 cur. """
 
-        return f"{round(self.__operation.operation_amount.amount, 2)} " \
+        return f"{self.__operation.operation_amount.amount:0.2f} " \
                f"{self.__operation.operation_amount.currency.name}"
 
     @property
