@@ -12,6 +12,12 @@ class DataProvider:
 
         return self._operations
 
+    def get_operations_by_status(self, operation_status: str):
+        return [
+                    operation for operation in self._operations
+                    if operation.state == operation_status
+                ]
+
     def get_operations_by_account_number(self, account_number: str):
         """
         Get operations for account

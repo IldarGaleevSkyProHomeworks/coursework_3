@@ -5,11 +5,10 @@ from coursework_3.views import OperationView
 
 
 def main(data_provider: DataProvider):
-    operations_list = data_provider.get_operations()
-    complete_operations = sorted([
-        operation for operation in operations_list
-        if operation.state == "EXECUTED"
-    ], reverse=True)[:settings.SHOW_OPERATIONS_COUNT]
+
+    complete_operations = sorted(
+        data_provider.get_operations_by_status("EXECUTED"),
+        reverse=True)[:settings.SHOW_OPERATIONS_COUNT]
 
     operation_view_list = [OperationView(operation) for operation in complete_operations]
 
