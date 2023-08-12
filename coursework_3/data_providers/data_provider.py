@@ -13,6 +13,11 @@ class DataProvider:
         return self._operations
 
     def get_operations_by_status(self, operation_status: str):
+        """
+        Get operations by status
+        :param operation_status: Operation status (EXECUTE, CANCELED)
+        :return: Filtered operations
+        """
         return [
                     operation for operation in self._operations
                     if operation.state == operation_status
